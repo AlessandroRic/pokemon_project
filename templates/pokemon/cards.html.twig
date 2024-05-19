@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pokémon Cards</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>Pokémon Cards</h1>
+    <div class="cards-container">
+        {% for card in cards %}
+        <a href="{{ card.id }}">
+            <div class="card">
+                <img src="{{ card.images.small }}" alt="{{ card.name }}">
+                <p><strong>Name:</strong> {{ card.name }}</p>
+                <p><strong>ID:</strong> {{ card.id }}</p>
+                <p><strong>Type(s):</strong> {{ card.types|join(', ') }}</p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</body>
+</html>

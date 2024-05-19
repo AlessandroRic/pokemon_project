@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ card.name }} - Pokémon Card Details</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>{{ card.name }}</h1>
+    <div class="card-details">
+        <img src="{{ card.images.large }}" alt="{{ card.name }}">
+        <p><strong>Name:</strong> {{ card.name }}</p>
+        <p><strong>ID:</strong> {{ card.id }}</p>
+        <p><strong>Type(s):</strong> {{ card.types|join(', ') }}</p>
+        
+        {% if card.resistances is defined %}
+            <p><strong>Resistances:</strong> {% for resistance in card.resistances %}{{ resistance.type }} ({{ resistance.value }}) {% endfor %}</p>
+        {% else %}
+            <p><strong>Resistances:</strong> None</p>
+        {% endif %}
+        <p><strong>Weaknesses:</strong> {% for weakness in card.weaknesses %}{{ weakness.type }} ({{ weakness.value }}) {% endfor %}</p>
+        <p><strong>Attacks:</strong></p>
+        <dl>
+            {% for attack in card.attacks %}
+                <dd><strong>{{ attack.name }}:</strong> {{ attack.text }}</dd>
+            {% endfor %}
+        </dl>
+        <a href="/" class="back-link">Back to Cards List</a>
+    </div>
+</body>
+</html>
