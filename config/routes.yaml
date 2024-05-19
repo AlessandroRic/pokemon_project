@@ -1,5 +1,15 @@
 controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+  resource:
+    path: ../src/Controller/
+    namespace: App\Controller
+  type: attribute
+
+pokemon_index:
+  path: /api/cards
+  controller: App\Controller\PokemonController::index
+  methods: GET
+
+pokemon_details:
+  path: /api/cards/{id}
+  controller: App\Controller\PokemonController::details
+  methods: GET
