@@ -1,4 +1,4 @@
-# Archtecture
+# Architecture
 
 ```
 pokemon-tcg-api/
