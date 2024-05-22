@@ -35,6 +35,7 @@ COPY ./docker/apache/vhost.conf /etc/apache2/sites-available/000-default.conf
 # Configurar permissões
 RUN chown -R www-data:www-data /var/www/html
 RUN chmod -R 755 /var/www/html
+RUN chmod +x setup.sh
 
 # Expor a porta do Apache
 EXPOSE 80
