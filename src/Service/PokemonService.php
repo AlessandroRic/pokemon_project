@@ -49,14 +49,14 @@ class PokemonService
      * Retrieves details of a specific Pokemon card.
      *
      * @param string $id The ID of the Pokemon card.
-     * @return array The array of Pokemon card details.
+     * @return ?Pokemon The Pokemon card details.
      */
     public function getPokemonDetails($id): ?Pokemon
     {
         $response = $this->client->request('GET', "https://api.pokemontcg.io/v2/cards/{$id}");
         if ($response->getStatusCode() === 200) {
             $data = $response->toArray()['data'];
-            return (new Pokemon(
+            return new Pokemon(
                 $data['id'],
                 $data['name'],
                 $data['types'] ?? [],
@@ -64,7 +64,7 @@ class PokemonService
                 $data['resistances'] ?? [],
                 $data['weaknesses'] ?? [],
                 $data['attacks'] ?? []
-            ))->toArray();
+            );
         } else {
             return null;
         }

@@ -32,6 +32,7 @@ class PokemonViewController extends AbstractController
      *
      * @Route('/', name: 'pokemon_cards')
      */
+    #[Route('/', name: 'pokemon_cards')]
     public function showCards(): Response
     {
         $cacheKey = 'pokemon_cards';
@@ -57,6 +58,7 @@ class PokemonViewController extends AbstractController
      *
      * @Route('/{id}', name: 'pokemon_card_details')
      */
+    #[Route('/{id}', name: 'pokemon_card_details')]
     public function showCardDetails(string $id): Response
     {
         $card = $this->pokemonService->getPokemonDetails($id);

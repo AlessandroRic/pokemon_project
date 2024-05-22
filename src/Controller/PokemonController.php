@@ -58,20 +58,12 @@ class PokemonController extends AbstractController
      */
     public function details($id): Response
     {
-        $cacheKey = 'pokemon_details_' . $id;
-        $cachedData = $this->cacheService->getCache($cacheKey);
 
-        if ($cachedData) {
-            return new JsonResponse($cachedData);
-        }
-
-        $response = $this->pokemonService->getPokemonDetails($id);
+        $response = $this->pokemonService->getPokemonDetails($id)->toArray();
 
         if (!$response) {
             return new JsonResponse(['error' => 'Pokemon not found'], Response::HTTP_NOT_FOUND);
         }
-
-        $this->cacheService->setCache($cacheKey, $response, 3600);
 
         return new JsonResponse($response);
     }
