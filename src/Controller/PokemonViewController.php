@@ -63,6 +63,10 @@ class PokemonViewController extends AbstractController
     {
         $card = $this->pokemonService->getPokemonDetails($id);
 
+        if (!$card) {
+            throw $this->createNotFoundException('The card does not exist');
+        }
+
         return $this->render('pokemon/card_details.html.twig', [
             'card' => $card,
         ]);

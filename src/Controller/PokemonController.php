@@ -36,16 +36,20 @@ class PokemonController extends AbstractController
     public function index(): Response
     {
         $cacheKey = 'pokemon_index';
-        $cachedData = $this->cacheService->getCache($cacheKey);
+        try {
+            $cachedData = $this->cacheService->getCache($cacheKey);
 
-        if ($cachedData) {
-            return new JsonResponse($cachedData);
+            if ($cachedData) {
+                return new JsonResponse($cachedData);
+            }
+
+            $response = $this->pokemonService->getAllPokemon();
+            $this->cacheService->setCache($cacheKey, $response, 3600);
+
+            return new JsonResponse(['data' => $response]);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-
-        $response = $this->pokemonService->getAllPokemon();
-        $this->cacheService->setCache($cacheKey, $response, 3600);
-
-        return new JsonResponse(['data' => $response]);
     }
 
     /**
@@ -58,13 +62,16 @@ class PokemonController extends AbstractController
      */
     public function details($id): Response
     {
+        try {
+            $response = $this->pokemonService->getPokemonDetails($id);
 
-        $response = $this->pokemonService->getPokemonDetails($id)->toArray();
+            if (!$response) {
+                return new JsonResponse(['error' => 'Pokemon not found'], Response::HTTP_NOT_FOUND);
+            }
 
-        if (!$response) {
-            return new JsonResponse(['error' => 'Pokemon not found'], Response::HTTP_NOT_FOUND);
+            return new JsonResponse($response->toArray());
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-
-        return new JsonResponse($response);
     }
 }
