@@ -10,6 +10,16 @@
 
 echo ".env file has been updated with APP_ENV=dev and a new APP_SECRET"
 
+{
+  echo "KERNEL_CLASS='App\Kernel'"
+  echo "APP_SECRET='$ecretf0rt3st'"
+  echo "SYMFONY_DEPRECATIONS_HELPER=999999"
+  echo "PANTHER_APP_ENV=panther"
+  echo "PANTHER_ERROR_SCREENSHOT_DIR=./var/error-screenshots"
+} >> .env.test
+
+echo ".env.test file has been created"
+
 # Run composer install inside the Docker container
 composer install
 
