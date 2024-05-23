@@ -36,15 +36,18 @@ This project is a Symfony web application that consumes the Pokémon TCG API and
 ## Running the Code
 
 1. ### Build Containers
-    - (Docker) compose v1 run:
+- #### **Notes:** check before using Docker Compose Version using:
+    - `docker-compose -v` or 
+    - `docker compose version`
+
+- (Docker) **compose v1** run:
     ```
     docker-compose up -d --build
     ```
-    - (Docker) compose v2 run:
+- (Docker) **compose v2** run:
     ```
     docker compose up -d --build
     ```
-    - Notes: you can check it using `docker-compose -v` or `docker compose version`
 
 2. ### Install Libraries & setup to environment
 ```
@@ -64,4 +67,3 @@ docker exec -it symfony_app ./vendor/bin/phpunit
 
 4. ### System APIs
     - ### [API Docs](/docs/ApiDocs.md)
-```
